@@ -52,7 +52,9 @@ def m_c(n,boat_seat_count, cur_stat, result_list):
 
 
 
-
-m_c(3,2,[3,3,1],[])
+if __name__ == "__main__":
+	print 'Input the boat seat number'
+	boat_seat_count = int(raw_input())
+	m_c(3,boat_seat_count,[3,3,1],[])
 
 
