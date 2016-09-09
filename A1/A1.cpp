@@ -66,6 +66,15 @@ void print_vec(int* vec){
 	cout<<endl;
 }
 
+bool biggerthan(int* vec1, int* vec2){
+	for(int i=0; i<100; i++){
+		if(vec1[i]<vec2[i]){
+			return false;
+		}
+	}
+	return true;
+}
+
 int main()
 {
   int vec[100];
@@ -95,28 +104,28 @@ int main()
   // temp
   int max = eval(vec);
   duplicate_vec(vec,new_vec);
-  for(int m=0; m<1024; m++){
+  for(int m=0; m<climb_step; m++){
 		add_one(new_vec,0);
   }
 
 
   int temp_fitness;
 
-  // print_vec(vec);
-  // print_vec(new_vec);
-  // cout<<"temp max"<< eval(new_vec) <<endl;
-  // cout<<"max"<< max <<endl;
+  print_vec(vec);
+  print_vec(new_vec);
+  cout<<"temp max"<< eval(new_vec) <<endl;
+  cout<<"max"<< max <<endl;
 
   while(change_direction_times>=0){
 
   	temp_fitness = eval(new_vec);
   	cout << "temp fitness = " << temp_fitness << endl;
-  	cout << "max = " << max << endl;
-  	print_vec(new_vec);
+  	// cout << "max = " << max << endl;
+  	// print_vec(new_vec);
   	if(temp_fitness>max){
   		max = temp_fitness;
   		// back up new_vec
-  		duplicate_vec(vec,new_vec);
+  		duplicate_vec(new_vec,vec);
   		// if bigger ahead, then keep climbing
   		for(int m=0; m<climb_step; m++){
 			add_one(new_vec,0);
@@ -125,15 +134,24 @@ int main()
   	}
   	else{
   		// if bigger behind, then climb back and the climb_step should be 
-  		// half of previous climb step
+  		
+  		print_vec(new_vec);
   		climb_step = climb_step/2;
-  		duplicate_vec(new_vec,vec);
-  		for(int m=0; m<climb_step; m++){
-			minus_one(new_vec,0);
+  		duplicate_vec(vec,new_vec);
+  		if(biggerthan(vec,new_vec)==false){
+	  		for(int m=0; m<climb_step; m++){
+				minus_one(new_vec,0);
+	 		}
+	 		cout<<"climb back <<<<<<<<<<<<<<"<<endl;
  		}
-
+ 		else{
+ 			for(int m=0; m<climb_step; m++){
+				add_one(new_vec,0);
+	 		}
+	 		cout<<"climb back >>>>>>"<<endl;
+ 		}
+ 		
  		change_direction_times = change_direction_times - 1;
- 		cout<<"climb back"<<endl;
   	}
   	
 
