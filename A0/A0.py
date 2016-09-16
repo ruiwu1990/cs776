@@ -1,6 +1,6 @@
 def check_possible(n,cur_stat):
 	'''
-	this function check if the missionaries are alive
+	this function check if the current state is possible
 	'''
 	bank_b = [n-cur_stat[0],n-cur_stat[1]]
 	if cur_stat[0]>=0 and cur_stat[1]>=0 and bank_b[0]>=0 and bank_b[1]>=0:
@@ -18,8 +18,7 @@ def m_c(n,boat_seat_count, cur_stat, result_list):
 	cur_stat contains 3 numbers (first number means how many missionaries on one side of river 
 	bank A and second number means how many cannibal on the bank A, the last element is for boat: 1 means 
 	boat on bank A and 0 means boat on bank B), n people are missionaries and n are cannibals
-	start state are [n,n,1] and final state are [0,0,0], let's assume there is at least a solution for all
-	the problems
+	start state are [n,n,1] and final state are [0,0,0]
 	'''
 	if cur_stat == [0,0,0]:
 		print 'Finished. Result is:'
@@ -46,6 +45,14 @@ def m_c(n,boat_seat_count, cur_stat, result_list):
 
 			if check_possible(n,temp_stat) == True and temp_stat not in result_list:
 				m_c(n,boat_seat_count,temp_stat,result_list)
+			# elif check_possible(n,temp_stat) == False:
+			# 	print '----------invalid------------'
+			# 	print result_list
+			# 	print '-----------------------------'
+			# else:
+			# 	print '----------loop------------'
+			# 	print result_list
+				# print '-----------------------------'
 
 	# if the program can reach here, it means we should not push cur_stat
 	result_list.pop()
@@ -55,6 +62,8 @@ def m_c(n,boat_seat_count, cur_stat, result_list):
 if __name__ == "__main__":
 	print 'Input the boat seat number'
 	boat_seat_count = int(raw_input())
-	m_c(3,boat_seat_count,[3,3,1],[])
+	print 'How many the missionaries? (the program will use the same number for cannibals)'
+	n = int(raw_input())
+	m_c(n,boat_seat_count,[n,n,1],[])
 
 
