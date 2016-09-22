@@ -1,0 +1,10 @@
+all: A3
+
+A2: A3.o evalCPP.o
+	g++ A3.o evalCPP.o -o A3
+
+A2.o: A3.cpp
+	g++ -c A3.cpp
+
+clean:
+	rm A3
