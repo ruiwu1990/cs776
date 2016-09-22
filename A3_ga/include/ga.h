@@ -28,9 +28,11 @@ namespace ga {
 
 		//GA(){}
 		GA(int argc, char *argv[]);
+		GA(int argc, char *argv[], int loop_count);
 		~GA(){}
 
-		void setupOptions(int argc, char *argv[]);
+		// void setupOptions(int argc, char *argv[]);
+		void setupOptions(int argc, char *argv[], int loop_count);
 		void init();
 		void run();
 		//virtual void CHC(Population *p, Population *c);

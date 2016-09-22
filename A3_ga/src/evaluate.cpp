@@ -83,7 +83,7 @@ void third_de_jong(ga::Individual *ent) {
 	double x5 = (decode_local(ent->chrom, 40, 50) - 512)/100;
 
 	ent->fit = int(x1)+int(x2)+int(x3)+int(x4)+int(x5);
-	cout<<"temp x1:"<<x1<<" temp x2:"<<x2<<" temp x3:"<<x3<<" temp x4:"<<x4<<" temp x5:"<<x5<<endl;
+	// cout<<"temp x1:"<<x1<<" temp x2:"<<x2<<" temp x3:"<<x3<<" temp x4:"<<x4<<" temp x5:"<<x5<<endl;
 	return;	
 }
 
