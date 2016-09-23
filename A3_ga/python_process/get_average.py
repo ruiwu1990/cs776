@@ -31,3 +31,17 @@ def get_average_file(folder_location,output_file, model_run_num):
 
 # get_average_file('temp','result.csv',2)
 get_average_file('../A3_result/1_1','result1_1.csv',30)
+get_average_file('../A3_result/1_2','result1_2.csv',30)
+get_average_file('../A3_result/1_3','result1_3.csv',30)
+
+get_average_file('../A3_result/2_1','result2_1.csv',30)
+get_average_file('../A3_result/2_2','result2_2.csv',30)
+get_average_file('../A3_result/2_3','result2_3.csv',30)
+
+get_average_file('../A3_result/3_1','result3_1.csv',30)
+get_average_file('../A3_result/3_2','result3_2.csv',30)
+get_average_file('../A3_result/3_3','result3_3.csv',30)
+
+get_average_file('../A3_result/4_1','result4_1.csv',30)
+get_average_file('../A3_result/4_2','result4_2.csv',30)
+get_average_file('../A3_result/4_3','result4_3.csv',30)

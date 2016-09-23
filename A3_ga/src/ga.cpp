@@ -141,7 +141,8 @@ void GA::setupOptions(int argc, char *argv[], int loop_count){
 
 	// base on time to change seed
 	// srand((unsigned)time(0));
-	options.randomSeed = rand()%200;	
+	// options.randomSeed = rand()%200;	
+	options.randomSeed = 90 + 10 * loop_count;
 
 
 	// options.randomSeed = 189;
