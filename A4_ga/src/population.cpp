@@ -142,15 +142,21 @@ void Population::xoverAndMutate(Individual *p1, Individual *p2, Individual *c1, 
 		c2->chrom[i] = p2->chrom[i];
 	}
 	if(flip(options.px)){ // if prob, then cross/exchange bits
-		twoPoint(p1, p2, c1, c2);
+		// twoPoint(p1, p2, c1, c2);
+		ux_PMX(p1, p2, c1, c2);
 	}
 
 	// std::cout << "Crossover children" << std::endl;
 	// std::cout << *c1;
 	// std::cout << *c2;
-	c1->mutate(options.pm);
-	c2->mutate(options.pm);
+
+	// Rui
+	// c1->mutate(options.pm);
+	// c2->mutate(options.pm);
+	c1->swap_mutate(options.pm);
+	c2->swap_mutate(options.pm);
 }
+
 
 void Population::twoPoint(Individual *p1, Individual *p2, Individual *c1, Individual *c2){ //not debugged
 	int t1 = intInRange(0, options.chromLength);
@@ -164,6 +170,8 @@ void Population::twoPoint(Individual *p1, Individual *p2, Individual *c1, Indivi
 	}
 }
 
+
+
 void Population::ux(Individual *p1, Individual *p2, Individual *c1, Individual *c2){
 	for(int i = 0; i < options.chromLength; i++){
 		if(flip(0.5)){
@@ -173,9 +181,179 @@ void Population::ux(Individual *p1, Individual *p2, Individual *c1, Individual *
 	}
 }
 
+// Rui rewrote this function to do crossover
+void Population::ux_PMX(Individual *p1, Individual *p2, Individual *c1, Individual *c2){
+	int t1 = intInRange(0, options.chromLength);
+	int t2 = intInRange(0, options.chromLength);
+	int xp1 = std::min(t1, t2);
+	int xp2 = std::max(t1, t2);
 
-void ux_PMX(Individual *p1, Individual *p2, Individual *c1, Individual *c2){
+	int* backup1 = new int[xp2 - xp1];
+	int* backup2 = new int[xp2 - xp1];
 
+	int* crossover1 = new int[xp2 - xp1];
+	int* crossover2 = new int[xp2 - xp1];
+
+	// the crossover part will be crossovered for sure
+	for(int i = xp1; i < xp2; i++){
+		backup1[i-xp1] = p1->chrom[i];
+		backup2[i-xp1] = p2->chrom[i];
+
+		crossover1[i-xp1] = p2->chrom[i];
+		crossover2[i-xp1] = p1->chrom[i];
+
+		c1->chrom[i] = p2->chrom[i];
+		c2->chrom[i] = p1->chrom[i];
+	}
+
+	// for(int i; i<options.chromLength; i++){
+	// 	std::cout<<c1->chrom[i];
+	// 	std::cout<<"aaaaaa";
+	// }
+	// std::cout<<"-------------------"<<std::endl;
+	// std::cout<<"first point:"<<xp1<<std::endl;
+	// std::cout<<"second point:"<<xp2<<std::endl;
+
+
+	// print parent and child for test
+	// std::cout<<"parent:"<<std::endl;
+	// for(int i=0; i<options.chromLength; i++){
+	// 	std::cout<<p1->chrom[i];
+	// }
+	// std::cout<<std::endl;
+	// std::cout<<"child:"<<std::endl;
+	// for(int i=0; i<options.chromLength; i++){
+	// 	std::cout<<c1->chrom[i];
+	// }
+	// std::cout<<std::endl;
+
+	
+
+	int is_repeat1;
+	int is_repeat2;
+	// int flag = 0;
+	// before the crossover part
+	for(int i = 0; i<xp2-xp1; i++){
+		for(int j = 0; j<xp1; j++){
+			is_repeat1 = if_number_in_array(crossover1,c1->chrom[j],xp2-xp1);
+			is_repeat2 = if_number_in_array(crossover2,c2->chrom[j],xp2-xp1);
+			if(is_repeat1 != -1)
+			{
+				// // test
+				// std::cout<<"first part before change:"<<std::endl;
+				// for(int j = 0; j<xp1; j++){
+				// 	std::cout<<c1->chrom[j];
+				// }
+				
+				// std::cout<<std::endl;
+				// test ends
+
+				// for(int k=0; k<options.chromLength; k++){
+				// 	if(backup1[is_repeat1]==c1->chrom[k]){
+				// 		std::cout<<"something is wrong------------"<<k<<std::endl;
+				// 		flag = 1;
+				// 	}
+				// }
+				// if(flag == 0){
+				// 	c1->chrom[j] = backup1[is_repeat1];	
+				// }
+				c1->chrom[j] = backup1[is_repeat1];
+
+				// // test from here
+				// flag = 1;
+				// std::cout<<"repeated part is:"<<is_repeat1<<std::endl;
+				// std::cout<<"crossover number is:"<<is_repeat1<<std::endl;
+				// std::cout<<"repeated part is:"<<is_repeat1<<std::endl;
+
+				// std::cout<<"temp crossover part:"<<std::endl;
+				// for(int i = 0; i<xp2-xp1; i++){
+				// 	std::cout<<crossover1[i];
+				// }
+				// std::cout<<std::endl;
+				// std::cout<<"temp previous part:"<<std::endl;
+				// for(int i = 0; i<xp2-xp1; i++){
+				// 	std::cout<<backup1[i];
+				// }
+				// std::cout<<std::endl;
+
+				
+				// // test ends here
+			}
+			if(is_repeat2 != -1)
+			{
+				c2->chrom[j] = backup2[is_repeat2];
+			}
+		}
+	}
+
+
+	// flag = 0;
+	// after the crossover part
+	for(int i = 0; i<xp2-xp1; i++){
+		for(int j = xp2; j<options.chromLength-xp2; j++){
+			is_repeat1 = if_number_in_array(crossover1,c1->chrom[j],xp2-xp1);
+			is_repeat2 = if_number_in_array(crossover2,c2->chrom[j],xp2-xp1);
+			if(is_repeat1 != -1)
+			{
+				// // test
+				// std::cout<<"first part before change:"<<std::endl;
+				// for(int j = xp2; j<options.chromLength-xp2; j++){
+				// 	std::cout<<c1->chrom[j];
+				// }
+				
+				// std::cout<<std::endl;
+
+				// std::cout<<"--------changed part is:"<<c1->chrom[j]<<"; changed into:"<<backup1[is_repeat1]<<std::endl;
+				// // test ends
+
+				// for(int k=0; k<options.chromLength; k++){
+				// 	if(backup1[is_repeat1]==c1->chrom[k]){
+				// 		std::cout<<"something is wrong+++++++++++++++++"<<k<<std::endl;
+				// 		flag = 1;
+				// 	}
+				// }
+
+				// if(flag == 0){
+				// 	c1->chrom[j] = backup1[is_repeat1];	
+				// }
+				
+				c1->chrom[j] = backup1[is_repeat1];
+
+				// // test from here
+				// flag = 1;
+				// std::cout<<"repeated part is:"<<is_repeat1<<std::endl;
+				// std::cout<<"crossover number is:"<<is_repeat1<<std::endl;
+
+				// std::cout<<"temp crossover part:"<<std::endl;
+				// for(int i = 0; i<xp2-xp1; i++){
+				// 	std::cout<<crossover1[i];
+				// }
+				// std::cout<<std::endl;
+				// std::cout<<"temp previous part:"<<std::endl;
+				// for(int i = 0; i<xp2-xp1; i++){
+				// 	std::cout<<backup1[i];
+				// }
+				// std::cout<<std::endl;
+
+				
+				// // test ends here
+			}
+			if(is_repeat2 != -1)
+			{
+				c2->chrom[j] = backup2[is_repeat2];
+			}
+		}
+	}
+	
+	// I have to use this function, there is something wrong with my PMX
+	remove_duplicate_element_in_array(c1->chrom, options.chromLength);
+	remove_duplicate_element_in_array(c2->chrom, options.chromLength);
+	
+
+	delete [] backup1;
+	delete [] backup2;
+	delete [] crossover1;
+	delete [] crossover2;
 }
 
 int Population::proportionalSelector(){

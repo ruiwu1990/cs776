@@ -32,11 +32,12 @@ namespace ga {
 		void copy(Individual *i);
 		void init(int len);
 		void mutate(float prob);
+		void swap_mutate(float prob);
 		bool check_repeat(int temp, int cur_pos);
 
 		friend std::ostream &operator<<(std::ostream &output, const Individual &ip){
 			for(int i = 0; i < ip.length; i++){
-				output << ip.chrom[i];
+				output << ip.chrom[i]<<"-";
 			}
 			output << " " ; //std::endl;
 

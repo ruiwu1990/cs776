@@ -90,25 +90,25 @@ void GA::run(){//chc
 
 		updateProgress(i, child);
 
-		// test options.chromLength
-		cout<<"this is parent"<<endl;
-		for (int i = 0; i < options.chromLength; i++){
-			cout<<parent->pop[0]->chrom[i]<<'-';
-		}
-		cout<<endl;
-		for (int i = 0; i < options.chromLength; i++){
-			cout<<parent->pop[1]->chrom[i]<<'-';
-		}
-		cout<<endl;
-		cout<<"this is child"<<endl;
-		for (int i = 0; i < options.chromLength; i++){
-			cout<<child->pop[0]->chrom[i]<<'-';
-		}
-		cout<<endl;
-		for (int i = 0; i < options.chromLength; i++){
-			cout<<child->pop[1]->chrom[i]<<'-';
-		}
-		cout<<endl;
+		// // test options.chromLength
+		// cout<<"this is parent"<<endl;
+		// for (int i = 0; i < options.chromLength; i++){
+		// 	cout<<parent->pop[0]->chrom[i]<<'-';
+		// }
+		// cout<<endl;
+		// for (int i = 0; i < options.chromLength; i++){
+		// 	cout<<parent->pop[1]->chrom[i]<<'-';
+		// }
+		// cout<<endl;
+		// cout<<"this is child"<<endl;
+		// for (int i = 0; i < options.chromLength; i++){
+		// 	cout<<child->pop[0]->chrom[i]<<'-';
+		// }
+		// cout<<endl;
+		// for (int i = 0; i < options.chromLength; i++){
+		// 	cout<<child->pop[1]->chrom[i]<<'-';
+		// }
+		// cout<<endl;
 
 		tmp = parent;
 		parent = child;
@@ -170,22 +170,20 @@ void GA::setupOptions(int argc, char *argv[], int loop_count){
 	options.outfile = string("../A3_result/outfile_")+to_string(loop_count);// append randomseed to output file names
 
 	options.popSize = 100;
-	// for first it should be 30, coz each x should be 10, from -5.12 to 5.12
-	// for second it should be 24, coz each x should be 12, from -2.048 to 2.048
-	// for third it should be 50, coz each x should be 10, from -5.12 to 5.12
-	// for fourth it should be 240, coz each x should be 8, from -1.23 to 1.28
-	options.chromLength = 10;
+	// need to update length too
+	options.chromLength = 52;
 	// options.maxgens = 100;
-	options.maxgens = 3;
-	options.px = 0.2f;
-	options.pm = 0.0001f;
+	options.maxgens = 100;
+	options.px = 0.67f;
+	options.pm = 0.001f;
 	options.scaler = 1.05;
 	options.lambda = 2;
 	options.nCriteria   = 1;
 
 	options.mutator = Mutator::Flip;
-	options.xover = Xover::PMX;
-	// options.xover = Xover::UX;
+	// options.mutator = Mutator::Swap;
+	// options.xover = Xover::PMX;
+	options.xover = Xover::UX;
 	options.selector = Selector::Proportionate;
 
 	if(argc == 4){

@@ -43,6 +43,7 @@ bool Individual::check_repeat(int temp, int cur_pos){
 	return false;
 }
 
+// Rui
 void Individual::init(int len){
 	assert(len <= MAX_CHROM_LENGTH);
 	length = len;
@@ -60,11 +61,36 @@ void Individual::init(int len){
 }
 
 
-
 void Individual::mutate(float prob){
 	for(int i = 0; i < length; i++){
 		if(flip(prob) == 1)
 			chrom[i] = 1 - chrom[i];
+	}
+}
+
+// Rui rewrite the function to do the swap mutation
+void Individual::swap_mutate(float prob){
+	int temp, temp1, temp2, rand1, rand2;
+	// cout<<"total length:"<<length<<endl;
+	for(int i = 0; i < length; i++){
+		if(flip(prob) == 1)
+			// withour doing this temp1 can be more than length, idk y
+			rand1 = rand();
+			rand2 = rand();
+			temp1 = (rand1)%10;
+			temp2 = rand2%10;
+			// temp1 = rand()%10;
+			// temp2 = rand()%10;
+			// cout<<"loc11:"<<rand1<<endl;
+			// cout<<"loc22:"<<rand2<<endl;
+			// cout<<"loc1:"<<temp1<<endl;
+			// cout<<"loc2:"<<temp2<<endl;
+			// swap
+			// cout<<"first:"<<chrom[temp1]<<endl;
+			// cout<<"second:"<<chrom[temp2]<<endl;
+			temp = chrom[temp1];
+			chrom[temp1] = chrom[temp2];
+			chrom[temp2] = temp;
 	}
 }
 

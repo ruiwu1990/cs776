@@ -18,5 +18,8 @@ void chromToString(int *x, int len, char *s);
 void stringToChrom(char *chromChar, int len, int *chromInt);
 float decode (int *chrom, int start, int end, float min, float max);
 float decode(const char* chrom, int start, int end, float min, float max);
+int if_number_in_array(int* array, int num, int len);
+void remove_duplicate_element_in_array(int* array, int len);
+void parse_tsp_file(char* filename, float dist_info[52][2]);
 
 #endif /* UTILS_H_ */
