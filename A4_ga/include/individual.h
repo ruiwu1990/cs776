@@ -36,8 +36,9 @@ namespace ga {
 		bool check_repeat(int temp, int cur_pos);
 
 		friend std::ostream &operator<<(std::ostream &output, const Individual &ip){
+			// std::cout<<"--------------------------"<<std::endl;
 			for(int i = 0; i < ip.length; i++){
-				output << ip.chrom[i]<<"-";
+				output << ip.chrom[i] << "-";
 			}
 			output << " " ; //std::endl;
 

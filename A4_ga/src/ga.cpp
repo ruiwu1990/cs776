@@ -167,13 +167,14 @@ void GA::setupOptions(int argc, char *argv[], int loop_count){
 
 	// options.randomSeed = 189;
 	options.infile = string("infile");
-	options.outfile = string("../A3_result/outfile_")+to_string(loop_count);// append randomseed to output file names
+	options.outfile = string("../A4_result/outfile_")+to_string(loop_count);// append randomseed to output file names
 
-	options.popSize = 100;
+	options.popSize = 200;
 	// need to update length too
 	options.chromLength = 52;
-	// options.maxgens = 100;
-	options.maxgens = 100;
+	// options.chromLength = 51;
+	options.maxgens = 500;
+	// options.maxgens = 50;
 	options.px = 0.67f;
 	options.pm = 0.001f;
 	options.scaler = 1.05;

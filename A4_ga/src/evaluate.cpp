@@ -116,9 +116,11 @@ void fourth_de_jong(ga::Individual *ent) {
 
 void test(ga::Individual *ent) {
 	// need to change this every time & the function parse_tsp_file
+	// float city_info[52][2];
 	float city_info[52][2];
 	// int city_num = 52;
 
+	// parse_tsp_file("../data/berlin52.tsp",city_info);
 	parse_tsp_file("../data/berlin52.tsp",city_info);
 	ent->fit = 0;
 
@@ -127,8 +129,10 @@ void test(ga::Individual *ent) {
 		ent->fit = ent->fit + sqrt(pow((city_info[ent->chrom[i]][0]-city_info[ent->chrom[i+1]][0]),2)+pow((city_info[ent->chrom[i]][1]-city_info[ent->chrom[i+1]][1]),2));
 	}
 
+	// ent->fit = floor(ent->fit);
+
 	// convert min into max
-	ent->fit = 1000000 - ent->fit;
+	ent->fit = 1.0/ent->fit;
 
 	return;
 }

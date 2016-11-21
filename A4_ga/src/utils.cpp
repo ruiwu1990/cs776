@@ -142,12 +142,13 @@ void remove_duplicate_element_in_array(int* array, int len){
 // Rui this function is used to parse the tsp file
 // the idea is from http://stackoverflow.com/questions/7868936/read-file-line-by-line
 // len represents the city number
+// void parse_tsp_file(char* filename, float dist_info[52][2]){
 void parse_tsp_file(char* filename, float dist_info[52][2]){
 	std::ifstream infile(filename);
 	std::string line;
 
 	// remove meta data lines
-	int meta_data_length = 6;
+	int meta_data_length = 0;
 	for(int i=0; i<meta_data_length; i++){
 		std::getline(infile, line);
 	}
