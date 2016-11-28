@@ -44,13 +44,35 @@ void Population::initialize(){
 void Population::generation(Population *child){
 
 	int pi1, pi2, ci1, ci2;
-	Individual *p1, *p2, *c1, *c2;
+	Individual *p1, *p2, *c1, *c2, *swap;
 	//std::cout << "Parents" << std::endl;
 	//printPop(0, options.popSize);
+
+
+    //panda_logic-start
+
+    int n = options.popSize;
+
+    for (int c = 0 ; c < ( n - 1 ); c++){
+    	for (int d = 0 ; d < n - c - 1; d++){
+            if (pop[d]->fit < pop[d+1]->fit) {
+		        swap       = pop[d];
+		        pop[d]   = pop[d+1];
+		        pop[d+1] = swap;
+      		}
+   		}
+ 	}
+
+   //panda_logic-end
+
 	
 	for(int i = 0; i < options.popSize; i += 2){
-		pi1 = proportionalSelector();
-		pi2 = proportionalSelector();
+		int max = options.popSize/2, min =0;
+		pi1 = rand()%(max-min + 1) + min;
+		pi2 = rand()%(max-min + 1) + min;
+
+		//pi1 = proportionalSelector();
+		//pi2 = proportionalSelector();
 		ci1 = i;
 		ci2 = i + 1;
 

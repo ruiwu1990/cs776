@@ -81,10 +81,13 @@ void rmse_eval(ga::Individual *ent){
 	float temp_arr [13];
 	int count = 0;
 	float predicted_NO3 = 0;
-	float dtime = 0;
+	
 	float pi = 3.14159265359;
 	float sum = 0;
 	int total_line_num = 0;
+	float dtime = 0;
+	float decimal_time = 0;
+	float center_decimal_time = 0 ;
 	// remove the header
 	getline(infile, line);
 	// cout<<line<<endl;
@@ -110,11 +113,46 @@ void rmse_eval(ga::Individual *ent){
 		    // cout << temp_arr[count]<<"////";
 		    count++;
 		}
-		// panda king, please add time into this function
-		dtime = 1;
+
+		//month temp_arr[7]
+		//day temp_arr[8]
+
+        double decimal_time_date=0,decimal_time_time=0;
+
+        decimal_time_date = ((temp_arr[7]*30)+temp_arr[8])/365;
+        decimal_time_time = ((temp_arr[10]*60)+temp_arr[11])/(365*24*60);
+        decimal_time =  decimal_time_date + decimal_time_time + temp_arr[10]; //with YEAR
+        //decimal_time =  decimal_time_date + decimal_time_time; //without YEAR
+        center_decimal_time = 2005.249334; //with YEAR
+        //center_decimal_time = 0.497174658; //without YEAR
+   
+        dtime = decimal_time - center_decimal_time;
+
+		//dtime = 1;
+
+		// predicted_NO3 = x0+x1*log(temp_arr[4])+x2*log(temp_arr[4]*temp_arr[4])+x3*sin(2*pi*dtime)+
+		// 	x4*cos(2*pi*dtime)+x5*dtime+x6*dtime*dtime/1e11+x7*temp_arr[5]+x8*temp_arr[3]+x9*temp_arr[2]+
+		// 	x10*temp_arr[1]+x11*temp_arr[0];
+
 		predicted_NO3 = x0+x1*log(temp_arr[4])+x2*log(temp_arr[4]*temp_arr[4])+x3*sin(2*pi*dtime)+
-			x4*cos(2*pi*dtime)+x5*dtime+x6*dtime*dtime+x7*temp_arr[5]+x8*temp_arr[3]+x9*temp_arr[2]+
+			x4*cos(2*pi*dtime)+x5*dtime+x7*temp_arr[5]+x8*temp_arr[3]+x9*temp_arr[2]+
 			x10*temp_arr[1]+x11*temp_arr[0];
+
+		// predicted_NO3 = x0 + x1*temp_arr[0] + x2*temp_arr[0]*temp_arr[0] +
+		// 				x3 + x1*temp_arr[1] + x2*temp_arr[0]*temp_arr[0] +
+		// 				x0 + x1*temp_arr[2] + x2*temp_arr[0]*temp_arr[0] +
+		// 				x0 + x1*temp_arr[3] + x2*temp_arr[0]*temp_arr[0] +
+		// 				x0 + x1*temp_arr[4] + x2*temp_arr[0]*temp_arr[0] +
+		// 				x0 + x1*temp_arr[5] + x2*temp_arr[0]*temp_arr[0] +
+		// 				x0 + x1*temp_arr[6] + x2*temp_arr[0]*temp_arr[0] +
+		// 				x0 + x1*temp_arr[7] + x2*temp_arr[0]*temp_arr[0] +
+		// 				x0 + x1*temp_arr[8] + x2*temp_arr[0]*temp_arr[0] +
+		// 				x0 + x1*temp_arr[9] + x2*temp_arr[0]*temp_arr[0] +
+		// 				x0 + x1*temp_arr[10] + x2*temp_arr[0]*temp_arr[0] +
+		// 				x0 + x1*temp_arr[11] + x2*temp_arr[0]*temp_arr[0] +
+		// 				x0 + x1*temp_arr[12] + x2*temp_arr[0]*temp_arr[0];
+		
+
 
 		sum = (temp_arr[12] - predicted_NO3)*(temp_arr[12] - predicted_NO3) + sum;
 
@@ -128,11 +166,20 @@ void rmse_eval(ga::Individual *ent){
 
 		// 	break;
 		// }
+        
+		// cout<<"\n sin_pi_time: "<<sin(2*pi*dtime)<<"\t cos_pi_time: "<<cos(2*pi*dtime)<<"\n";
+		// cout<<"\n sin_pi_timexxxx: "<<x3*sin(2*pi*dtime)<<"\t cos_pi_timexxxxx: "<<x4*cos(2*pi*dtime)<<"\n";
+		// cout<<"jose is panda:"<<x6*dtime*dtime/1e11<<endl;
+		// cout<<"\n predicted_NO3: "<<predicted_NO3<<"\n";
+		// cout<<"\n aaaaa: "<<(temp_arr[12] - predicted_NO3)*(temp_arr[12] - predicted_NO3)<<"\n";
+		//cout<<"\n sum: "<<sum;
 		
 	}
 	// 1/rmse
-	// cout<<(sqrt(sum/total_line_num))<<endl;
+	//cout<<(sqrt(sum/total_line_num))<<endl;
 	ent->fit = 1.0/(sqrt(sum/total_line_num));
+	//cout<<"\n ent->fit : "<< ent->fit ;
+
 }
 
 // void first_de_jong(ga::Individual *ent) {

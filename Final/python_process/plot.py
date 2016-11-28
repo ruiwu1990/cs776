@@ -54,17 +54,3 @@ def plot(save_folder,input_file):
 	fp.close()
 
 plot('pic//','result1_1.csv')
-plot('pic//','result1_2.csv')
-plot('pic//','result1_3.csv')
-
-plot('pic//','result2_1.csv')
-plot('pic//','result2_2.csv')
-plot('pic//','result2_3.csv')
-
-plot('pic//','result3_1.csv')
-plot('pic//','result3_2.csv')
-plot('pic//','result3_3.csv')
-
-plot('pic//','result4_1.csv')
-plot('pic//','result4_2.csv')
-plot('pic//','result4_3.csv')
