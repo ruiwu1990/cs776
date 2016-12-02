@@ -23,20 +23,23 @@ Population::Population(Options opts){
 }
 
 void Population::setup(){
+
 	assert(options.popSize * options.lambda <= MAX_POPSIZE);
+
 	for (int i = 0; i < options.popSize * options.lambda; i++){
 		pop[i] = new Individual(options.chromLength);
 		pop[i]->init(options.chromLength);
 	}
+
 	avg = min = max = -1;
 	mini = maxi = -1;
 }
 
 void Population::initialize(){
-//	printPop(0, options.popSize * options.lambda);
+	// printPop(0, options.popSize * options.lambda);
 	eval(0, options.popSize);
 //	printPop(0, options.popSize * options.lambda);
-//	std::cout << "end initialization" << std::endl;
+	// std::cout << "end initialization" << std::endl;
 	statistics();
 	report(0);
 }

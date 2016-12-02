@@ -10,8 +10,8 @@
 
 namespace ga {
 
-	const int MAX_POPSIZE = 200;
-	const int MAX_CHROM_LENGTH = 250;
+	const int MAX_POPSIZE = 1000;
+	const int MAX_CHROM_LENGTH = 1000;
 	const int MAX_CRITERIA = 3;
 	const int MAX_INPUT_CHROMOSOMES = 3;
 

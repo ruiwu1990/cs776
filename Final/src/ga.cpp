@@ -61,7 +61,6 @@ GA::GA(int argc, char *argv[], int loop_count){
 	this->bestIndividualSoFar = new Individual(options.chromLength);
 	bestFitnessSoFar = -1;
 
-
 }
 
 
@@ -154,7 +153,9 @@ void GA::setupOptions(int argc, char *argv[], int loop_count){
 	// for second it should be 24, coz each x should be 12, from -2.048 to 2.048
 	// for third it should be 50, coz each x should be 10, from -5.12 to 5.12
 	// for fourth it should be 240, coz each x should be 8, from -1.23 to 1.28
-	options.chromLength = 132;
+	// options.chromLength = 132;
+	// options.chromLength = 429;
+	options.chromLength = 330;
 	options.maxgens = 500;
 	options.px = 0.9f;
 	options.pm = 0.001f;
@@ -175,7 +176,6 @@ void GA::setupOptions(int argc, char *argv[], int loop_count){
 	//derived values go after configure() above
 	options.phenotypeFile   = string(options.outfile + ".pheno"); //derived from options.outfile
 	//options.maxgens = options.popSize * 1.5;
-
 
 }
 
