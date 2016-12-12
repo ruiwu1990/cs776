@@ -157,7 +157,7 @@ void GA::setupOptions(int argc, char *argv[], int loop_count){
 	options.chromLength = 132;
 	options.maxgens = 500;
 	options.px = 0.9f;
-	options.pm = 0.001f;
+	options.pm = 0.01f;
 	options.scaler = 1.05;
 	options.lambda = 2;
 	options.nCriteria = 1;

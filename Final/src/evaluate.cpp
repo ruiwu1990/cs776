@@ -121,7 +121,7 @@ void rmse_eval(ga::Individual *ent){
 
         decimal_time_date = ((temp_arr[7]*30)+temp_arr[8])/365;
         decimal_time_time = ((temp_arr[10]*60)+temp_arr[11])/(365*24*60);
-        decimal_time =  decimal_time_date + decimal_time_time + temp_arr[10]; //with YEAR
+        decimal_time =  decimal_time_date + decimal_time_time + temp_arr[9]; //with YEAR
         //decimal_time =  decimal_time_date + decimal_time_time; //without YEAR
         center_decimal_time = 2005.249334; //with YEAR
         //center_decimal_time = 0.497174658; //without YEAR
@@ -130,13 +130,13 @@ void rmse_eval(ga::Individual *ent){
 
 		//dtime = 1;
 
-		// predicted_NO3 = x0+x1*log(temp_arr[4])+x2*log(temp_arr[4]*temp_arr[4])+x3*sin(2*pi*dtime)+
-		// 	x4*cos(2*pi*dtime)+x5*dtime+x6*dtime*dtime/1e11+x7*temp_arr[5]+x8*temp_arr[3]+x9*temp_arr[2]+
-		// 	x10*temp_arr[1]+x11*temp_arr[0];
-
 		predicted_NO3 = x0+x1*log(temp_arr[4])+x2*log(temp_arr[4]*temp_arr[4])+x3*sin(2*pi*dtime)+
-			x4*cos(2*pi*dtime)+x5*dtime+x7*temp_arr[5]+x8*temp_arr[3]+x9*temp_arr[2]+
+			x4*cos(2*pi*dtime)+x5*dtime+x6*dtime*dtime/1e11+x7*temp_arr[5]+x8*temp_arr[3]+x9*temp_arr[2]+
 			x10*temp_arr[1]+x11*temp_arr[0];
+
+		// predicted_NO3 = x0+x1*log(temp_arr[4])+x2*log(temp_arr[4]*temp_arr[4])+x3*sin(2*pi*dtime)+
+		// 	x4*cos(2*pi*dtime)+x5*dtime+x7*temp_arr[5]+x8*temp_arr[3]+x9*temp_arr[2]+
+		// 	x10*temp_arr[1]+x11*temp_arr[0];
 
 		// predicted_NO3 = x0 + x1*temp_arr[0] + x2*temp_arr[0]*temp_arr[0] +
 		// 				x3 + x1*temp_arr[1] + x2*temp_arr[0]*temp_arr[0] +

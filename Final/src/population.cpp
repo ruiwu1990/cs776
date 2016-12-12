@@ -52,10 +52,13 @@ void Population::generation(Population *child){
     //panda_logic-start
 
     int n = options.popSize;
+    int totalfitness = (n*(n+1))/2;
+
 
     for (int c = 0 ; c < ( n - 1 ); c++){
     	for (int d = 0 ; d < n - c - 1; d++){
-            if (pop[d]->fit < pop[d+1]->fit) {
+    		// sort in ascending order of fitness - rank is the index
+            if (pop[d]->fit > pop[d+1]->fit) {
 		        swap       = pop[d];
 		        pop[d]   = pop[d+1];
 		        pop[d+1] = swap;
@@ -67,12 +70,12 @@ void Population::generation(Population *child){
 
 	
 	for(int i = 0; i < options.popSize; i += 2){
-		int max = options.popSize/2, min =0;
-		pi1 = rand()%(max-min + 1) + min;
-		pi2 = rand()%(max-min + 1) + min;
+		// int max = options.popSize/2, min =0;
+		// pi1 = rand()%(max-min + 1) + min;
+		// pi2 = rand()%(max-min + 1) + min;
 
-		//pi1 = proportionalSelector();
-		//pi2 = proportionalSelector();
+		pi1 = rankSelector();
+		pi2 = rankSelector();
 		ci1 = i;
 		ci2 = i + 1;
 
@@ -194,6 +197,19 @@ void Population::ux(Individual *p1, Individual *p2, Individual *c1, Individual *
 		}
 	}
 }
+
+int Population::rankSelector(){
+	int i = 0;
+	double sum = 0;
+	double totalfitness = (options.popSize*(options.popSize+1))/2;
+	double limit = randomFraction() * totalfitness;
+
+	do {
+	  sum += i++;
+	} while (sum < limit && i < options.popSize );
+
+	return i-1; //Make sure this works properly
+} 
 
 int Population::proportionalSelector(){
 	int i = 0;

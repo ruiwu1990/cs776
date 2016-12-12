@@ -41,6 +41,7 @@ namespace ga {
 		//void parallelEval(int start, int end);
 		void generation(Population *c);
 		int proportionalSelector();
+		int rankSelector();
 		void xoverAndMutate(Individual *p1, Individual *p2, Individual *c1, Individual *c2);
 		void twoPoint(Individual *p1, Individual *p2, Individual *c1, Individual *c2);
 		void ux(Individual *p1, Individual *p2, Individual *c1, Individual *c2);
